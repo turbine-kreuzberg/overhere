@@ -10,7 +10,7 @@ import (
 )
 
 // NewServer sets up a new DNS server.
-func NewServer(defaultIP string, port int, verbose bool) (*dns.Server, error) {
+func NewServer(defaultIP string, addr string, port int, verbose bool) (*dns.Server, error) {
 	ip := net.ParseIP(defaultIP)
 	var err error
 
@@ -26,7 +26,7 @@ func NewServer(defaultIP string, port int, verbose bool) (*dns.Server, error) {
 	log.Printf("resolving to IP: %s", ip)
 
 	srv := &dns.Server{
-		Addr: ":" + strconv.Itoa(port),
+		Addr: addr + ":" + strconv.Itoa(port),
 		Net:  "udp",
 	}
 	srv.Handler = &handler{

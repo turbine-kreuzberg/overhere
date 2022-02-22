@@ -18,6 +18,13 @@ var (
 		Usage:   "IP to resolve to. Autodetected by default.",
 		EnvVars: []string{"OVERHERE_RESOLVE_TO"},
 	}
+	bind = &cli.StringFlag{
+		Name:    "bind-ip",
+		Aliases: []string{"bind"},
+		Usage:   "IP to bind.",
+		Value:   "0.0.0.0",
+		EnvVars: []string{"OVERHERE_PORT"},
+	}
 	port = &cli.IntFlag{
 		Name:    "port",
 		Aliases: []string{"p"},
@@ -36,6 +43,7 @@ var (
 		Usage: "A very minimal DNS server for development purposes.",
 		Flags: []cli.Flag{
 			resolveTo,
+			bind,
 			port,
 			verbose,
 		},
@@ -52,15 +60,16 @@ func main() {
 
 func runServer(c *cli.Context) error {
 	resolveTo := c.String(resolveTo.Name)
+	addr := c.String(bind.Name)
 	port := c.Int(port.Name)
 	verbose := c.Bool(verbose.Name)
 
-	srv, err := overhere.NewServer(resolveTo, port, verbose)
+	srv, err := overhere.NewServer(resolveTo, addr, port, verbose)
 	if err != nil {
 		return fmt.Errorf("setup dns server: %v", err)
 	}
 
-	log.Printf("listen on port: %d", port)
+	log.Printf("listen on port: %s:%d", addr, port)
 
 	err = srv.ListenAndServe()
 	if err != nil {

@@ -16,7 +16,7 @@ func TestNewServer(t *testing.T) {
 	verbose := false
 
 	// startup
-	srv, err := overhere.NewServer("1.2.3.4", port, verbose)
+	srv, err := overhere.NewServer("1.2.3.4", "127.0.0.1", port, verbose)
 	if err != nil {
 		t.Errorf("NewServer() error = %v", err)
 		return
