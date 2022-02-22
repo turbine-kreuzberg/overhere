@@ -22,7 +22,7 @@ var (
 		Name:    "port",
 		Aliases: []string{"p"},
 		Usage:   "Port to listen on.",
-		Value:   15353,
+		Value:   53,
 		EnvVars: []string{"OVERHERE_PORT"},
 	}
 	verbose = &cli.BoolFlag{
