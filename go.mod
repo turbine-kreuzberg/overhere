@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/lixiangzhong/dnsutil v1.4.0
-	github.com/miekg/dns v1.1.46
+	github.com/miekg/dns v1.1.50
 	github.com/urfave/cli/v2 v2.3.0
 )
 
